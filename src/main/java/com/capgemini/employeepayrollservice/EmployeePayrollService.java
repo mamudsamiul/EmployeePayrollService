@@ -1,8 +1,45 @@
 package com.capgemini.employeepayrollservice;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
 public class EmployeePayrollService {
 
+	public enum IOService {
+		CONSOLE_IO, FILE_IO, DB_IO, REST_IO;
+	}
+
+	private List<EmployeePayrollData> employeeList;
+
+	public EmployeePayrollService() {
+
+	}
+
+	public EmployeePayrollService(List<EmployeePayrollData> employeeList) {
+
+		this.employeeList = employeeList;
+	}
+
 	public static void main(String[] args) {
-		System.out.println("Welcome to the employee payroll service!");
+		ArrayList<EmployeePayrollData> employeeList = new ArrayList<>();
+		EmployeePayrollService empService = new EmployeePayrollService(employeeList);
+		Scanner sc = new Scanner(System.in);
+		empService.readData(sc);
+		empService.writeData();
+	}
+
+	private void readData(Scanner sc) {
+		System.out.println("Enter ID: ");
+		int id = Integer.parseInt(sc.nextLine());
+		System.out.println("Enter name: ");
+		String name = sc.next();
+		System.out.println("Enter Salary: ");
+		Double salary = sc.nextDouble();
+		employeeList.add(new EmployeePayrollData(id, name, salary));
+	}
+
+	private void writeData() {
+		System.out.println("\nWriting to Console \n" + employeeList);
 	}
 }
